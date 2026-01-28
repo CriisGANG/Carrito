@@ -36,16 +36,32 @@ function Shop() {
 
     let isDisabled = canAddMore(currentCart, catalog, )
 
+
+    function getProductorLog(productId, functionToCheck) {
+      let product = catalog.findById(productId);
+
+      if (!product) {
+        console.error(`${functionToCheck}: productId no existe en el catalogo`, productId) ;
+        product = null;
+     }
+        return product
+     }
 function handleAdd(productId){
-    setCurrentCart(prev =>  !canAddMore(prev, catalog, productId) ?
+    setCurrentCart(prev => {
+    if  (!getProductorLog(productId, "handleAdd")) {
+      return prev
+    }
+      return !canAddMore(prev, catalog, productId) ?
     prev :
     prev.add(productId, 1)
-   );
+});
   }
 
 function handleInc(productId) {
   setCurrentCart((prev) => {
-
+ if  (!getProductorLog(productId, "handleInc")) {
+      return prev
+    }
    return !canAddMore(prev, catalog, productId) ?
     prev :
     prev.updateQty(productId, getQtyInCart(prev, productId) + 1);
@@ -60,6 +76,9 @@ function isAddDisabled (productId) {
 
 function handleDec(productId) {
   setCurrentCart((prev) => {
+     if  (!getProductorLog(productId, "handleDec")) {
+      return prev
+    }
     const currentQty = prev.items.find((it) => it.productId === productId)?.qty ?? 0;
     return prev.updateQty(productId, currentQty - 1);
   });
