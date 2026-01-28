@@ -1,0 +1,98 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.2px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-areas:
+    "controls controls"
+    "products cart";
+  gap: 16px;
+  align-items: start;
+}
+
+/* Nuevo: barra de controles */
+.controls {
+  grid-area: controls;
+  display: grid;
+  grid-template-columns: auto minmax(220px, 320px) auto minmax(220px, 1fr) auto;
+  gap: 10px 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+/* Ajustes de tipografía/espaciado de controles */
+.controls label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+
+.controls select,
+.controls input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.15);
+  color: inherit;
+  outline: none;
+}
+
+.controls select:focus,
+.controls input:focus {
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+.controls button {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.controls button:active {
+  transform: translateY(1px);
+}
+
+.footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 860px) {
+  .content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "controls"
+      "products"
+      "cart";
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
