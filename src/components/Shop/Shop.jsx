@@ -8,6 +8,7 @@ import ProductList from "../ProductList/ProductList.jsx";
 import CartView from "../CartView/CartView.jsx";
 import { useState } from "react";
 import { canAddMore, getQtyInCart } from "../../domain/cart/cartHelpers.js";
+import {Route, Routes, NavLink} from "react-router-dom"
 
 
 function Shop() {
@@ -90,6 +91,12 @@ function handleDec(productId) {
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>Shop Online</h1>
+        <nav>
+          <ul>
+            <li><NavLink to="/">Catalogo</NavLink></li>
+            <li><NavLink to="/cart">Carrito</NavLink></li>
+          </ul>
+        </nav>
       </header>
 
       <main className={styles.content}>
@@ -108,8 +115,24 @@ function handleDec(productId) {
               placeholder="Escriu un nom..." />
         <button type="button" onClick={() => setSearchQuery("")}>Netejar</button>
         </div>
-        <ProductList products={products} onAdd={handleAdd} isAddDisabled = {isAddDisabled}/>
-        <CartView lines={lines} total={total} onInc={handleInc} onDec={handleDec} isAddDisabled = {isAddDisabled} />
+        <Routes>
+          <Route path="/" element={<ProductList 
+                                  products={products} 
+                                  onAdd={handleAdd} 
+                                  isAddDisabled = {isAddDisabled}/>}
+          />
+          <Route path="/cart" element={
+                                      <CartView 
+                                      lines={lines} 
+                                      total={total} 
+                                      onInc={handleInc} 
+                                      onDec={handleDec} 
+                                      isAddDisabled = {isAddDisabled} 
+                                      />
+          }
+          />
+          <Route path="*" element={<p> 404 - Ruta no encontrada</p>} />
+        </Routes>
       </main>
 
       <footer className={styles.footer}>
