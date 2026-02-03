@@ -8,7 +8,7 @@ import ProductList from "../ProductList/ProductList.jsx";
 import CartView from "../CartView/CartView.jsx";
 import { useState } from "react";
 import { canAddMore, getQtyInCart } from "../../domain/cart/cartHelpers.js";
-import {Route, Routes, NavLink} from "react-router-dom"
+import {Route, Routes, NavLink, Outlet} from "react-router-dom"
 
 
 function Shop() {
@@ -100,39 +100,25 @@ function handleDec(productId) {
       </header>
 
       <main className={styles.content}>
-        <div className={styles.controls}>
-        <label htmlFor="filtre">Ordenar:</label>
-            <select id="filtre" value={sortkey} onChange={(ev) => setSortkey(ev.target.value)}>
-                {SORT_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-            </select>
-        <label htmlFor="cerca">Cercar:</label>
-        <input id="cerca"
-              type="text"
-              value={searchQuery}
-              onChange={(ev) => setSearchQuery(ev.target.value)}
-              placeholder="Escriu un nom..." />
-        <button type="button" onClick={() => setSearchQuery("")}>Netejar</button>
-        </div>
-        <Routes>
-          <Route path="/" element={<ProductList 
-                                  products={products} 
-                                  onAdd={handleAdd} 
-                                  isAddDisabled = {isAddDisabled}/>}
+        
+        <Outlet 
+          context={{
+            products,
+            lines,
+            total,
+            handleAdd,
+            handleInc,
+            handleDec,
+            isAddDisabled,
+            setSearchQuery,
+            setSortkey,
+            searchQuery,
+            sortkey,
+            SORT_OPTIONS
+
+
+          }}
           />
-          <Route path="/cart" element={
-                                      <CartView 
-                                      lines={lines} 
-                                      total={total} 
-                                      onInc={handleInc} 
-                                      onDec={handleDec} 
-                                      isAddDisabled = {isAddDisabled} 
-                                      />
-          }
-          />
-          <Route path="*" element={<p> 404 - Ruta no encontrada</p>} />
-        </Routes>
       </main>
 
       <footer className={styles.footer}>
