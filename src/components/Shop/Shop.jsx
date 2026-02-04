@@ -103,6 +103,7 @@ function handleDec(productId) {
         
         <Outlet 
           context={{
+            catalog,
             products,
             lines,
             total,
@@ -114,7 +115,8 @@ function handleDec(productId) {
             setSortkey,
             searchQuery,
             sortkey,
-            SORT_OPTIONS
+            SORT_OPTIONS,
+            
 
 
           }}
